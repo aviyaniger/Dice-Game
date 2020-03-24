@@ -1,17 +1,28 @@
-const scoreBox1 = document.querySelector(".player-one .score");
-const scoreBox2 = document.querySelector(".player-two .score");
-const current1 = document.querySelector(".player-one .current div");
-const current2 = document.querySelector(".player-two .current div");
+const playerOne = {
+    side: document.querySelector(".player-one"),
+    scoreBox: document.querySelector(".player-one .score"),
+    currentBox: document.querySelector(".player-one .current div"),
+    score: 0,
+    myTurn: true,
+    name: document.querySelector(".player-one .name")
+}
+
+const playerTwo = {
+    side: document.querySelector(".player-two"),
+    scoreBox: document.querySelector(".player-two .score"),
+    currentBox: document.querySelector(".player-two .current div"),
+    score: 0,
+    myTurn: false,
+    name: document.querySelector(".player-two .name")
+}
+
+let name1 = playerOne.name.textContent = prompt("enter first player's name:");
+let name2 = playerTwo.name.textContent = prompt("enter second player's name");
 const newGame = document.querySelector(".new-game");
 const die = document.querySelector("#die");
 const roll = document.querySelector("#roll");
 const hold = document.querySelector("#hold");
-const player1 = document.querySelector(".player-one");
-const player2 = document.querySelector(".player-two");
 let current = 0;
-let turn1 = true;
-let score1 = 0;
-let score2 = 0;
 let winner = document.querySelector("#winner");
 
 function rollDie(){
@@ -20,34 +31,36 @@ function rollDie(){
 
 function addCurrent(number) {
     current += number;
-    if (turn1) {
-        current1.textContent = current;
+    if (playerOne.myTurn) {
+        playerOne.currentBox.textContent = current;
     } else {
-        current2.textContent = current;
+        playerTwo.currentBox.textContent = current;
     }
 }
 
 function endTurn() {
-    if (turn1) {
-        score1 += current;
-        scoreBox1.textContent = score1;
-        current1.textContent = 0;
-        player1.style.border = "none";
-        player2.style.border = "4px solid rgb(255, 100, 100)";
-        turn1 = false;
-        if (score1 >= 100) {
-            winner.textContent = "Player One is the WINNER!!!!!"
+    if (playerOne.myTurn) {
+        playerOne.score += current;
+        playerOne.scoreBox.textContent = playerOne.score;
+        playerOne.currentBox.textContent = 0;
+        playerOne.side.style.border = "none";
+        playerTwo.side.style.border = "10px solid rgb(255, 100, 100)";
+        playerOne.myTurn = false;
+        playerTwo.myTurn = true;
+        if (playerOne.score >= 100) {
+            winner.textContent = `${name1} is the WINNER!!!!!`
             winner.style.display = "block";
         }
     } else {
-        score2 += current;
-        scoreBox2.textContent = score2;
-        current2.textContent = 0;
-        player2.style.border = "none";
-        player1.style.border = "4px solid rgb(255, 100, 100)";
-        turn1 = true;
-        if (score2 >= 100) {
-            winner.textContent = "Player Two is the WINNER!!!!!"
+        playerTwo.score += current;
+        playerTwo.scoreBox.textContent = playerTwo.score;
+        playerTwo.currentBox.textContent = 0;
+        playerTwo.side.style.border = "none";
+        playerOne.side.style.border = "10px solid rgb(255, 100, 100)";
+        playerOne.myTurn = true;
+        playerTwo.myTurn = false;
+        if (playerTwo.score >= 100) {
+            winner.textContent = `${name2} is the WINNER!!!!!`
             winner.style.display = "block";
         }
     }
@@ -58,13 +71,13 @@ function endTurn() {
 newGame.addEventListener("click", function(){
     winner.style.display = "none";
     die.textContent = "↓";
-    scoreBox1.textContent = 0;
-    scoreBox2.textContent = 0;
-    score1 = 0;
-    score2 = 0;
-    current1.textContent = 0;
-    current2.textContent = 0;
-    player1.style.border = "4px solid rgb(255, 100, 100)";
+    playerOne.scoreBox.textContent = 0;
+    playerTwo.scoreBox.textContent = 0;
+    playerOne.score = 0;
+    playerTwo.score = 0;
+    playerOne.currentBox.textContent = 0;
+    playerTwo.currentBox.textContent = 0;
+    playerOne.side.style.border = "10px solid rgb(255, 100, 100)";
 });
 
 roll.addEventListener("click", function(){
