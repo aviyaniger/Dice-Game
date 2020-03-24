@@ -102,3 +102,15 @@ body {
 .play-container {
     align-self: end;
 }
+
+#winner {
+    position: fixed;
+    top: 20vh;
+    left: 10vw;
+    right: 10vw;
+    font-size: 4em;
+    color: rgb(0, 189, 0);
+    background-color: rgb(131, 35, 35);
+    padding: 1em;
+    display: none;
+}

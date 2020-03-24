@@ -12,6 +12,7 @@ let current = 0;
 let turn1 = true;
 let score1 = 0;
 let score2 = 0;
+let winner = document.querySelector("#winner");
 
 function rollDie(){
     return Math.floor(Math.random()*7);
@@ -35,7 +36,8 @@ function endTurn() {
         player2.style.border = "4px solid rgb(255, 100, 100)";
         turn1 = false;
         if (score1 >= 100) {
-            //TODO
+            winner.textContent = "Player One is the WINNER!!!!!"
+            winner.style.display = "block";
         }
     } else {
         score2 += current;
@@ -45,7 +47,8 @@ function endTurn() {
         player1.style.border = "4px solid rgb(255, 100, 100)";
         turn1 = true;
         if (score2 >= 100) {
-            //TODO
+            winner.textContent = "Player Two is the WINNER!!!!!"
+            winner.style.display = "block";
         }
     }
     current = 0;
@@ -53,9 +56,12 @@ function endTurn() {
 
 
 newGame.addEventListener("click", function(){
+    winner.style.display = "none";
     die.textContent = "↓";
     scoreBox1.textContent = 0;
     scoreBox2.textContent = 0;
+    score1 = 0;
+    score2 = 0;
     current1.textContent = 0;
     current2.textContent = 0;
     player1.style.border = "4px solid rgb(255, 100, 100)";
